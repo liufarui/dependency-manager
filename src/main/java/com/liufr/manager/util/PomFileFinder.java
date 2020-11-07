@@ -1,4 +1,4 @@
-package com.liufr.manager;
+package com.liufr.manager.util;
 
 import java.io.File;
 import java.io.IOException;

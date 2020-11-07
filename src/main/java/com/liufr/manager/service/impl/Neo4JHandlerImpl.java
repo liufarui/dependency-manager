@@ -1,17 +1,17 @@
-package com.liufr.manager;
+package com.liufr.manager.service.impl;
 
-import com.liufr.manager.impl.INeo4JUtil;
 import com.liufr.manager.model.Neo4jConn;
+import com.liufr.manager.service.Neo4JHandler;
 import org.neo4j.driver.*;
 
 /**
  * @author lfr
  * @date 2020/11/6 23:46
  */
-public class Neo4JUtil implements INeo4JUtil {
-    private Neo4jConn conn;
+public class Neo4JHandlerImpl implements Neo4JHandler {
+    private final Neo4jConn conn;
 
-    public Neo4JUtil(Neo4jConn conn) {
+    public Neo4JHandlerImpl(Neo4jConn conn) {
         this.conn = conn;
     }
 
@@ -31,8 +31,17 @@ public class Neo4JUtil implements INeo4JUtil {
     }
 
     @Override
+    public String getProject(String artifactId) {
+        String baseCmd = "MATCH (a:Project) WHERE a.artifactId = \"%s\" RETURN id(a) AS id";
+        String getArtifactCommand = String.format(baseCmd, artifactId);
+
+        Record record = execute(getArtifactCommand);
+        return (record == null) ? null : record.get("id").toString();
+    }
+
+    @Override
     public String getArtifact(String artifactId) {
-        String baseCmd = "MATCH (a) WHERE a.artifactId = \"%s\" RETURN id(a) AS id";
+        String baseCmd = "MATCH (a:Artifact) WHERE a.artifactId = \"%s\" RETURN id(a) AS id";
         String getArtifactCommand = String.format(baseCmd, artifactId);
 
         Record record = execute(getArtifactCommand);
@@ -42,15 +51,15 @@ public class Neo4JUtil implements INeo4JUtil {
     @Override
     public String createNode(String type, String groupId, String artifactId, String version) {
         String id = getArtifact(artifactId);
-        if (id != null) {
+        if ("Artifact".equals(type) && id != null) {
             return id;
         }
 
-        String baseCmd = "CREATE (a:%s {groupId: %s, artifactId: %s, version: %s})";
+        String baseCmd = "CREATE (a:%s {groupId: \"%s\", artifactId: \"%s\", version: \"%s\"}) RETURN id(a) AS id";
         String createNodeCmd = String.format(baseCmd, type, groupId, artifactId, version);
 
         Record record = execute(createNodeCmd);
-        return (record == null) ? null : record.get("id").toString();
+        return (record == null) ? "" : record.get("id").toString();
     }
 
     @Override

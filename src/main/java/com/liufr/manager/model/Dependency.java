@@ -1,30 +1,16 @@
 package com.liufr.manager.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
 
 /**
  * @author lfr
  * @date 2020/11/6
  */
 @XmlRootElement()
-public class Project {
-    @XmlElementWrapper(name = "dependencies")
-    @XmlElement(name = "dependency")
-    private ArrayList<Dependency> depList;
+public class Dependency {
     private String artifactId;
     private String groupId;
     private String version;
-
-    public ArrayList<Dependency> getDeps() {
-        return depList;
-    }
-
-    public void setDepList(ArrayList<Dependency> depList) {
-        this.depList = depList;
-    }
 
     public String getArtifactId() {
         return artifactId;
@@ -50,14 +36,26 @@ public class Project {
         this.version = version;
     }
 
+    public Boolean isOpen() {
+        if(this.groupId == null) {
+            return true;
+        }
+        return this.groupId.startsWith("org") || this.groupId.startsWith("spring");
+    }
+
+    public Boolean isJD() {
+        if(this.groupId == null) {
+            return true;
+        }
+        return this.groupId.startsWith("com.jd");
+    }
+
     @Override
     public String toString() {
-        int artifactCount = (depList == null) ? 0 : depList.size();
-        return "Project{" +
-                ", artifactId='" + artifactId + '\'' +
+        return "Dependency{" +
+                "artifactId='" + artifactId + '\'' +
                 ", groupId='" + groupId + '\'' +
                 ", version='" + version + '\'' +
-                "artifactList count=" + artifactCount +
                 '}';
     }
 }

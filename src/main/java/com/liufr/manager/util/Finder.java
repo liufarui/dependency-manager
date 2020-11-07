@@ -1,4 +1,4 @@
-package com.liufr.manager;
+package com.liufr.manager.util;
 
 import java.io.IOException;
 import java.nio.file.*;
@@ -16,7 +16,7 @@ public class Finder extends SimpleFileVisitor<Path> {
     private final PathMatcher matcher;
     private List<Path> foundFiles = new ArrayList<Path>();
 
-    Finder(String pattern) {
+    public Finder(String pattern) {
         matcher = FileSystems.getDefault()
                 .getPathMatcher("glob:" + pattern);
     }
