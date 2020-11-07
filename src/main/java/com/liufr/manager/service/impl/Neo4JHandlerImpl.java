@@ -16,18 +16,27 @@ public class Neo4JHandlerImpl implements Neo4JHandler {
     }
 
     @Override
-    public boolean isNeoAvailable() {
-        try (Driver driver = GraphDatabase.driver(conn.getServerURL(), AuthTokens.basic(conn.getUserName(), conn.getUserName()));) {
+    public Boolean isNeoAvailable() {
+        try (Driver driver = GraphDatabase.driver(conn.getServerURL(), AuthTokens.basic(conn.getUserName(), conn.getPassword()));
+             Session session = driver.session()) {
+            session.run("MATCH (n) RETURN n LIMIT 5");
             return true;
         } catch (Exception e) {
+            System.out.println(e.toString());
             return false;
         }
     }
 
     @Override
-    public void cleanDB() {
-        String clearCommand = "MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n,r";
-        execute(clearCommand);
+    public Boolean cleanDB() {
+        try {
+            String clearCommand = "MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n,r";
+            execute(clearCommand);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
     @Override
@@ -71,7 +80,7 @@ public class Neo4JHandlerImpl implements Neo4JHandler {
 
     private Record execute(String command) {
         try (Driver driver = GraphDatabase.driver(conn.getServerURL(), AuthTokens.basic(conn.getUserName(), conn.getPassword()));
-             Session session = driver.session();) {
+             Session session = driver.session()) {
             Result result = session.run(command);
 
             Record record = null;
@@ -82,7 +91,7 @@ public class Neo4JHandlerImpl implements Neo4JHandler {
             return record;
         } catch (Exception e) {
             System.out.println(e.toString());
-            System.out.println("ERROR!");
+            System.out.println("ERROR! Execute failed with -> " + command);
         }
         return null;
     }

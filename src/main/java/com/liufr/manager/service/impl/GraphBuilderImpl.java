@@ -17,16 +17,25 @@ public class GraphBuilderImpl implements GraphBuilder {
         this.handler = new Neo4JHandlerImpl(conn);
     }
 
-    public Boolean cleanup() throws Exception {
+    public Boolean connect() throws Exception {
         boolean isNeoAvailable = handler.isNeoAvailable();
         if (isNeoAvailable) {
-            handler.cleanDB();
-            System.out.println("Success to clear DB!");
+            System.out.println("Successful! Connected to Neo4J!");
             return true;
         }
 
-        System.out.println("ERROR! The Neo4J is not available!");
+        System.out.println("ERROR! Failed to connect to Neo4J!");
         return false;
+    }
+
+    public Boolean cleanup() throws Exception {
+        if (handler.cleanDB()) {
+            System.out.println("Success to clear DB!");
+            return true;
+        } else {
+            System.out.println("ERROR! The Neo4J is not available!");
+            return false;
+        }
     }
 
     public void buildRepoGraph(Project proj) throws Exception {

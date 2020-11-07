@@ -6,9 +6,9 @@ package com.liufr.manager.service;
  */
 public interface Neo4JHandler {
 
-    boolean isNeoAvailable();
+    Boolean isNeoAvailable();
 
-    void cleanDB();
+    Boolean cleanDB();
 
     String getArtifact(String artifactId);
 
