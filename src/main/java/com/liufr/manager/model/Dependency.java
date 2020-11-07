@@ -37,17 +37,29 @@ public class Dependency {
     }
 
     public Boolean isOpen() {
-        if(this.groupId == null) {
+        if (this.groupId == null) {
             return true;
         }
         return this.groupId.startsWith("org") || this.groupId.startsWith("spring");
     }
 
-    public Boolean isJD() {
-        if(this.groupId == null) {
+    public Boolean isFormat(String[] fix) {
+        if (this.artifactId == null) {
             return true;
         }
-        return this.groupId.startsWith("com.jd");
+        if (fix[0] != null && !fix[0].isEmpty() && !this.artifactId.startsWith(fix[0])) {
+            return false;
+        }
+        if (fix[1] != null && !fix[1].isEmpty() && !this.artifactId.contains(fix[1])) {
+            return false;
+        }
+        if (fix[2] != null && !fix[2].isEmpty() && !this.artifactId.endsWith(fix[2])) {
+            return false;
+        }
+        if (fix[3] != null && !fix[3].isEmpty() && !this.artifactId.equals(fix[3])) {
+            return false;
+        }
+        return true;
     }
 
     @Override

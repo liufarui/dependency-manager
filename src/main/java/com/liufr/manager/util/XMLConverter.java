@@ -29,7 +29,6 @@ public class XMLConverter {
         sax.setNamespaceAware(false);
         final XMLReader reader = sax.newSAXParser().getXMLReader();
         final Source er = new SAXSource(reader, new InputSource(new FileReader(path.toFile())));
-        Project proj = (Project)um.unmarshal(er);
-        return proj;
+        return (Project)um.unmarshal(er);
     }
 }

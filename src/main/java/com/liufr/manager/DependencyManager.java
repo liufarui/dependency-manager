@@ -26,6 +26,8 @@ public class DependencyManager {
     static String url;
     static String username;
     static String password;
+    static String type;
+    static String fix;
 
     public static void main(String[] args) throws Exception {
         switch (args.length) {
@@ -40,13 +42,17 @@ public class DependencyManager {
                 System.out.println("    <ServerURL> - The address of your graph database (Neo4J).");
                 System.out.println("    <Username>  - The username of your graph database (Neo4J).");
                 System.out.println("    <Password>  - The password of your graph database (Neo4J).");
-                System.out.println("Example: java -jar dependency-manager-0.0.1-SNAPSHOT-jar-with-dependencies.jar D:/workspace/so bolt://localhost:7687 neo4j neo4j");
+                System.out.println("    <Type>      - The type you want to manage (Project/Module).");
+                System.out.println("    <Format>    - The format you want to match, up to two * can be used(e.g. *, org*, *sql, org*spring*cn).");
+                System.out.println("Example: java -jar dependency-manager-0.0.1-SNAPSHOT-jar-with-dependencies.jar D:/workspace/so bolt://localhost:7687 neo4j neo4j Module org.spring*");
                 System.exit(0);
-            case 4:
+            case 6:
                 root = args[0];
                 url = args[1];
                 username = args[2];
                 password = args[3];
+                type = args[4];
+                fix = args[5];
                 break;
             default:
                 System.err.println("ERROR: Wrong number of arguments.");
@@ -54,42 +60,47 @@ public class DependencyManager {
                 System.exit(1);
         }
         System.out.println("Start!!!!!!!!");
-        Neo4jConn conn = new Neo4jConn(url, username, password);
-        build = new GraphBuilderImpl(conn);
+        build = new GraphBuilderImpl(new Neo4jConn(url, username, password), fix);
 
         if (!build.connect()) {
             System.exit(1);
         }
-        exportAllJD(root);
+        if ("Project".equals(type)) {
+            exportOnlyProj();
+        } else if("Module".equals(type)) {
+            exportAll();
+        } else {
+            System.err.println("ERROR: Wrong type, please input Module or Project, case sensitive.");
+            System.exit(1);
+        }
         System.out.println("End!!!!!!!!");
     }
 
     @Test
-    public void exportAllJD() throws Exception {
-        String root = "D:\\workspace\\so";
-        String url = "bolt://localhost:7687";
-        String username = "neo4j";
-        String password = "123456";
-
-        Neo4jConn conn = new Neo4jConn(url, username, password);
-        build = new GraphBuilderImpl(conn);
-
-        exportAllJD(root);
+    public void exportAllTest() throws Exception {
+        init();
+        exportAll();
     }
 
     @Test
-    public void checkConnect() throws Exception {
-        String url = "bolt://localhost:7687";
-        String username = "neo4j";
-        String password = "123456";
-
-        Neo4jConn conn = new Neo4jConn(url, username, password);
-        build = new GraphBuilderImpl(conn);
-        Boolean isConnected = build.connect();
-        System.out.println("asd");
+    public void checkConnectTest() throws Exception {
+        init();
+        build.connect();
     }
 
-    public static void exportAllJD(String root) throws Exception {
+    @Test
+    public void exportOnlyProjTest() throws Exception {
+        init();
+        exportOnlyProj();
+    }
+
+    public static void init() throws Exception {
+        root = "D:\\workspace\\so";
+        Neo4jConn conn = new Neo4jConn("bolt://localhost:7687", "neo4j", "123456");
+        build = new GraphBuilderImpl(conn);
+    }
+
+    public static void exportAll() throws Exception {
         /* Warning! Clear all data in neo4J! */
         if (!build.cleanup()) {
             return;
@@ -102,6 +113,16 @@ public class DependencyManager {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void exportOnlyProj() throws Exception {
+        /* Warning! Clear all data in neo4J! */
+        if (!build.cleanup()) {
+            return;
+        }
+        List<Project> projList = getProjList(getPaths(root));
+
+        build.buildProjRepoGraph(projList);
     }
 
     private static List<Project> getProjList(List<Path> paths) throws SAXException, ParserConfigurationException, FileNotFoundException, JAXBException {

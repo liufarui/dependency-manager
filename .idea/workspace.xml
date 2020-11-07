@@ -25,10 +25,10 @@
     <list default="true" id="539748d3-6b96-404f-98d8-d718bebf76b6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/DependencyManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/DependencyManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/model/Dependency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/model/Dependency.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/GraphBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/GraphBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/Neo4JHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/Neo4JHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/GraphBuilderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/GraphBuilderImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/Neo4JHandlerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/Neo4JHandlerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/util/XMLConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/util/XMLConverter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -66,14 +66,18 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../so" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../leetcode" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.liufr.manager.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.DependencyManager.test">
+  <component name="RunManager" selected="JUnit.DependencyManager.exportOnlyProj">
     <configuration name="DependencyManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.liufr.manager.DependencyManager" />
       <module name="dependency-manager" />
@@ -98,7 +102,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DependencyManager.exportAllJD" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DependencyManager.exportAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="dependency-manager" />
       <extension name="coverage">
         <pattern>
@@ -108,7 +112,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.liufr.manager" />
       <option name="MAIN_CLASS_NAME" value="com.liufr.manager.DependencyManager" />
-      <option name="METHOD_NAME" value="exportAllJD" />
+      <option name="METHOD_NAME" value="exportAll" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DependencyManager.exportOnlyProj" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="dependency-manager" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.liufr.manager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.liufr.manager" />
+      <option name="MAIN_CLASS_NAME" value="com.liufr.manager.DependencyManager" />
+      <option name="METHOD_NAME" value="exportOnlyProj" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -132,6 +152,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.DependencyManager.exportOnlyProj" />
         <item itemvalue="JUnit.DependencyManager.test" />
         <item itemvalue="Application.DependencyManager" />
         <item itemvalue="JUnit.DependencyManager.exportAllJD" />
@@ -147,7 +168,9 @@
       <option name="presentableId" value="Default" />
       <updated>1604680947692</updated>
       <workItem from="1604680950313" duration="9000" />
-      <workItem from="1604680995087" duration="18729000" />
+      <workItem from="1604680995087" duration="19541000" />
+      <workItem from="1604746480529" duration="13000" />
+      <workItem from="1604746507846" duration="10687000" />
     </task>
     <servers />
   </component>
@@ -164,8 +187,13 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="249" y="0" key="#Project_Structure" timestamp="1604753200062">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="249" y="0" key="#Project_Structure/0.0.1536.834@0.0.1536.834" timestamp="1604753200062" />
     <state x="574" y="101" key="#com.intellij.ide.util.MemberChooser" timestamp="1604729727154">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -178,46 +206,50 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="538" height="466" key="DebuggerActiveHint/0.0.1536.834@0.0.1536.834" timestamp="1604728064166" />
-    <state x="549" y="172" key="FileChooserDialogImpl" timestamp="1604740273846">
+    <state x="549" y="172" key="FileChooserDialogImpl" timestamp="1604753504254">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1604740273846" />
-    <state width="1493" height="255" key="GridCell.Tab.0.bottom" timestamp="1604743681394">
+    <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1604753504254" />
+    <state width="1493" height="32" key="GridCell.Tab.0.bottom" timestamp="1604757089438">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="255" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1604743681394" />
-    <state width="1493" height="255" key="GridCell.Tab.0.center" timestamp="1604743681394">
+    <state width="1493" height="32" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1604757089438" />
+    <state width="1493" height="32" key="GridCell.Tab.0.center" timestamp="1604757089438">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="255" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1604743681394" />
-    <state width="1493" height="255" key="GridCell.Tab.0.left" timestamp="1604743681394">
+    <state width="1493" height="32" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1604757089438" />
+    <state width="1493" height="32" key="GridCell.Tab.0.left" timestamp="1604757089438">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="255" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1604743681394" />
-    <state width="1493" height="255" key="GridCell.Tab.0.right" timestamp="1604743681394">
+    <state width="1493" height="32" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1604757089438" />
+    <state width="1493" height="32" key="GridCell.Tab.0.right" timestamp="1604757089438">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="255" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1604743681394" />
-    <state width="1493" height="255" key="GridCell.Tab.1.bottom" timestamp="1604743681394">
+    <state width="1493" height="32" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1604757089438" />
+    <state width="1493" height="242" key="GridCell.Tab.1.bottom" timestamp="1604746473574">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="255" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1604743681394" />
-    <state width="1493" height="255" key="GridCell.Tab.1.center" timestamp="1604743681394">
+    <state width="1493" height="242" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1604746473574" />
+    <state width="1493" height="242" key="GridCell.Tab.1.center" timestamp="1604746473574">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="255" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1604743681394" />
-    <state width="1493" height="255" key="GridCell.Tab.1.left" timestamp="1604743681394">
+    <state width="1493" height="242" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1604746473574" />
+    <state width="1493" height="242" key="GridCell.Tab.1.left" timestamp="1604746473574">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="255" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1604743681394" />
-    <state width="1493" height="255" key="GridCell.Tab.1.right" timestamp="1604743681394">
+    <state width="1493" height="242" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1604746473574" />
+    <state width="1493" height="242" key="GridCell.Tab.1.right" timestamp="1604746473574">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="255" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1604743681394" />
+    <state width="1493" height="242" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1604746473574" />
     <state x="299" y="72" key="Maven.ArtifactSearchDialog" timestamp="1604734333161">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="299" y="72" key="Maven.ArtifactSearchDialog/0.0.1536.834@0.0.1536.834" timestamp="1604734333161" />
+    <state x="270" y="61" key="SettingsEditor" timestamp="1604756323481">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="270" y="61" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1604756323481" />
     <state x="521" y="113" key="VCS.ChangeListViewerDialog" timestamp="1604681661429">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -226,10 +258,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="306" y="153" width="924" height="641" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.834@0.0.1536.834" timestamp="1604728041543" />
-    <state x="467" y="149" width="602" height="536" key="find.popup" timestamp="1604743783281">
+    <state x="467" y="149" width="602" height="536" key="find.popup" timestamp="1604761669759">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="467" y="149" width="602" height="536" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1604743783281" />
+    <state x="467" y="149" width="602" height="536" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1604761669759" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
