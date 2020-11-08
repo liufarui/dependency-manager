@@ -24,12 +24,6 @@
   <component name="ChangeListManager">
     <list default="true" id="539748d3-6b96-404f-98d8-d718bebf76b6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/DependencyManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/DependencyManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/model/Dependency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/model/Dependency.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/GraphBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/GraphBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/GraphBuilderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/GraphBuilderImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/util/XMLConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/util/XMLConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +164,7 @@
       <workItem from="1604680950313" duration="9000" />
       <workItem from="1604680995087" duration="19541000" />
       <workItem from="1604746480529" duration="13000" />
-      <workItem from="1604746507846" duration="10687000" />
+      <workItem from="1604746507846" duration="13671000" />
     </task>
     <servers />
   </component>
