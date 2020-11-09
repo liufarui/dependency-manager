@@ -56,7 +56,7 @@ public class DependencyManager {
                 break;
             default:
                 System.err.println("ERROR: Wrong number of arguments.");
-                System.err.println("Example: java -jar dependency-manager-0.0.1-SNAPSHOT-jar-with-dependencies.jar D:\\workspace\\so bolt://localhost:7687 neo4j neo4j");
+                System.err.println("Example: java -jar dependency-manager-0.0.1-SNAPSHOT-jar-with-dependencies.jar D:\\workspace\\so bolt://localhost:7687 neo4j neo4j Module org.spring*");
                 System.exit(1);
         }
         System.out.println("Start!!!!!!!!");
@@ -97,7 +97,7 @@ public class DependencyManager {
     public static void init() throws Exception {
         root = "D:\\workspace\\so";
         Neo4jConn conn = new Neo4jConn("bolt://localhost:7687", "neo4j", "123456");
-        build = new GraphBuilderImpl(conn);
+        build = new GraphBuilderImpl(conn, "*ecl*");
     }
 
     public static void exportAll() throws Exception {

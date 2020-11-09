@@ -6,6 +6,7 @@ import com.liufr.manager.model.Project;
 import com.liufr.manager.service.GraphBuilder;
 import com.liufr.manager.service.Neo4JHandler;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,33 +31,40 @@ public class GraphBuilderImpl implements GraphBuilder {
         }
         String[] temp = fix.split("\\*");
         System.out.println(temp.length);
-        switch (temp.length) {
+        List<String> fixes = new ArrayList<>();
+        for (String s : temp) {
+            if(s!=null && !s.isEmpty()) {
+                fixes.add(s);
+            }
+        }
+        
+        switch (fixes.size()) {
             case 0:
                 break;
             case 1:
                 if (fix.startsWith("*") && fix.endsWith("*")) {
                     /*    *abc*     */
-                    this.fix[1] = temp[0];
+                    this.fix[1] = fixes.get(0);
                 } else if (fix.startsWith("*")) {
                     /*    *abc     */
-                    this.fix[2] = temp[0];
+                    this.fix[2] = fixes.get(0);
                 } else if (fix.endsWith("*")) {
                     /*    abc*     */
-                    this.fix[0] = temp[0];
+                    this.fix[0] = fixes.get(0);
                 } else {
                     /*    abc     */
-                    this.fix[3] = temp[0];
+                    this.fix[3] = fixes.get(0);
                 }
                 break;
             case 2:
                 if (fix.startsWith("*")) {
                     /*    *abc*def     */
-                    this.fix[1] = temp[0];
-                    this.fix[2] = temp[1];
+                    this.fix[1] = fixes.get(0);
+                    this.fix[2] = fixes.get(1);
                 } else if (fix.endsWith("*")) {
                     /*    abc*def*     */
-                    this.fix[0] = temp[0];
-                    this.fix[1] = temp[1];
+                    this.fix[0] = fixes.get(0);
+                    this.fix[1] = fixes.get(1);
                 } else {
                     System.out.println("ERROR! Format contains too many *!");
                     throw new Exception("Format contains too many *!");
@@ -65,9 +73,9 @@ public class GraphBuilderImpl implements GraphBuilder {
             case 3:
                 if (!fix.startsWith("*") && !fix.endsWith("*")) {
                     /*    abc*def*hij     */
-                    this.fix[0] = temp[0];
-                    this.fix[1] = temp[1];
-                    this.fix[2] = temp[2];
+                    this.fix[0] = fixes.get(0);
+                    this.fix[1] = fixes.get(1);
+                    this.fix[2] = fixes.get(2);
                 } else {
                     System.out.println("ERROR! Format contains too many *!");
                     throw new Exception("Format contains too many *!");
