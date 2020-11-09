@@ -30,14 +30,12 @@ public class GraphBuilderImpl implements GraphBuilder {
             return;
         }
         String[] temp = fix.split("\\*");
-        System.out.println(temp.length);
         List<String> fixes = new ArrayList<>();
         for (String s : temp) {
             if(s!=null && !s.isEmpty()) {
                 fixes.add(s);
             }
         }
-        
         switch (fixes.size()) {
             case 0:
                 break;

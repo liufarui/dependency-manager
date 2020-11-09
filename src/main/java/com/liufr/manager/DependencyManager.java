@@ -43,19 +43,24 @@ public class DependencyManager {
                 System.out.println("    <Username>  - The username of your graph database (Neo4J).");
                 System.out.println("    <Password>  - The password of your graph database (Neo4J).");
                 System.out.println("    <Type>      - The type you want to manage (Project/Module).");
-                System.out.println("    <Format>    - The format you want to match, up to two * can be used(e.g. *, org*, *sql, org*spring*cn).");
+                System.out.println("    </Format>   - The format you want to match, up to two (*) can be used (e.g. org*, *sql, org*spring*cn).");
+                System.out.println("                - Format can be ignored! Full match will be used by default.");
+                System.out.println("                - Special reminder: Single full match symbol (*) cannot be used.");
                 System.out.println("Example: java -jar dependency-manager-0.0.1-SNAPSHOT-jar-with-dependencies.jar D:/workspace/so bolt://localhost:7687 neo4j neo4j Module org.spring*");
                 System.exit(0);
+            case 5:
             case 6:
                 root = args[0];
                 url = args[1];
                 username = args[2];
                 password = args[3];
                 type = args[4];
-                fix = args[5];
+                if (args.length == 6) {
+                    fix = args[5];
+                }
                 break;
             default:
-                System.err.println("ERROR: Wrong number of arguments.");
+                System.err.println("ERROR: Wrong number of arguments, your number of arguments is " + args.length);
                 System.err.println("Example: java -jar dependency-manager-0.0.1-SNAPSHOT-jar-with-dependencies.jar D:\\workspace\\so bolt://localhost:7687 neo4j neo4j Module org.spring*");
                 System.exit(1);
         }
@@ -67,7 +72,7 @@ public class DependencyManager {
         }
         if ("Project".equals(type)) {
             exportOnlyProj();
-        } else if("Module".equals(type)) {
+        } else if ("Module".equals(type)) {
             exportAll();
         } else {
             System.err.println("ERROR: Wrong type, please input Module or Project, case sensitive.");
@@ -97,7 +102,7 @@ public class DependencyManager {
     public static void init() throws Exception {
         root = "D:\\workspace\\so";
         Neo4jConn conn = new Neo4jConn("bolt://localhost:7687", "neo4j", "123456");
-        build = new GraphBuilderImpl(conn, "*ecl*");
+        build = new GraphBuilderImpl(conn, "*");
     }
 
     public static void exportAll() throws Exception {

@@ -86,7 +86,7 @@ public class Neo4JHandlerImpl implements Neo4JHandler {
             Record record = null;
             while (result.hasNext()) {
                 record = result.next();
-                System.out.println(record.toString());
+//                System.out.println(record.toString());
             }
             return record;
         } catch (Exception e) {
