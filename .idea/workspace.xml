@@ -25,9 +25,14 @@
     <list default="true" id="539748d3-6b96-404f-98d8-d718bebf76b6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/DependencyManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/DependencyManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/model/Dependency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/model/Dependency.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/GraphBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/GraphBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/Neo4JHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/Neo4JHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/GraphBuilderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/GraphBuilderImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/Neo4JHandlerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/Neo4JHandlerImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,8 +42,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -76,19 +81,6 @@
     </key>
   </component>
   <component name="RunManager" selected="JUnit.DependencyManager.exportAllTest">
-    <configuration name="DependencyManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.liufr.manager.DependencyManager" />
-      <module name="dependency-manager" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.liufr.manager.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -148,6 +140,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DependencyManager.getDependency" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="dependency-manager" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.liufr.manager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.liufr.manager" />
+      <option name="MAIN_CLASS_NAME" value="com.liufr.manager.DependencyManager" />
+      <option name="METHOD_NAME" value="getDependency" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DependencyManager.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="dependency-manager" />
       <extension name="coverage">
@@ -167,10 +175,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.DependencyManager.exportAllTest" />
+        <item itemvalue="JUnit.DependencyManager.test" />
+        <item itemvalue="JUnit.DependencyManager.getDependency" />
         <item itemvalue="JUnit.DependencyManager.checkConnectTest" />
         <item itemvalue="JUnit.DependencyManager.exportOnlyProj" />
-        <item itemvalue="JUnit.DependencyManager.test" />
-        <item itemvalue="Application.DependencyManager" />
       </list>
     </recent_temporary>
   </component>
@@ -188,7 +196,7 @@
       <workItem from="1604746507846" duration="14291000" />
       <workItem from="1604844748647" duration="4000" />
       <workItem from="1604845035288" duration="16000" />
-      <workItem from="1604884286877" duration="4224000" />
+      <workItem from="1604884286877" duration="26993000" />
     </task>
     <servers />
   </component>
@@ -212,54 +220,54 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="249" y="0" key="#Project_Structure/0.0.1536.834@0.0.1536.834" timestamp="1604753200062" />
-    <state x="574" y="101" key="#com.intellij.ide.util.MemberChooser" timestamp="1604729727154">
+    <state x="574" y="101" key="#com.intellij.ide.util.MemberChooser" timestamp="1604901206449">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="574" y="101" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1604729727154" />
+    <state x="574" y="101" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1604901206449" />
     <state x="202" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1604727776819">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="202" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1604727776819" />
-    <state width="538" height="466" key="DebuggerActiveHint" timestamp="1604887624646">
+    <state width="571" height="466" key="DebuggerActiveHint" timestamp="1604920695614">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="538" height="466" key="DebuggerActiveHint/0.0.1536.834@0.0.1536.834" timestamp="1604887624646" />
+    <state width="571" height="466" key="DebuggerActiveHint/0.0.1536.834@0.0.1536.834" timestamp="1604920695614" />
     <state x="549" y="172" key="FileChooserDialogImpl" timestamp="1604753504254">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1604753504254" />
-    <state width="1493" height="131" key="GridCell.Tab.0.bottom" timestamp="1604887605814">
+    <state width="1493" height="61" key="GridCell.Tab.0.bottom" timestamp="1604920791804">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="131" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1604887605814" />
-    <state width="1493" height="131" key="GridCell.Tab.0.center" timestamp="1604887605814">
+    <state width="1493" height="61" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1604920791804" />
+    <state width="1493" height="61" key="GridCell.Tab.0.center" timestamp="1604920791804">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="131" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1604887605814" />
-    <state width="1493" height="131" key="GridCell.Tab.0.left" timestamp="1604887605814">
+    <state width="1493" height="61" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1604920791804" />
+    <state width="1493" height="61" key="GridCell.Tab.0.left" timestamp="1604920791803">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="131" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1604887605814" />
-    <state width="1493" height="131" key="GridCell.Tab.0.right" timestamp="1604887605814">
+    <state width="1493" height="61" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1604920791803" />
+    <state width="1493" height="61" key="GridCell.Tab.0.right" timestamp="1604920791804">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="131" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1604887605814" />
-    <state width="1493" height="131" key="GridCell.Tab.1.bottom" timestamp="1604887619463">
+    <state width="1493" height="61" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1604920791804" />
+    <state width="1493" height="61" key="GridCell.Tab.1.bottom" timestamp="1604920791804">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="131" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1604887619463" />
-    <state width="1493" height="131" key="GridCell.Tab.1.center" timestamp="1604887619463">
+    <state width="1493" height="61" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1604920791804" />
+    <state width="1493" height="61" key="GridCell.Tab.1.center" timestamp="1604920791804">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="131" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1604887619463" />
-    <state width="1493" height="131" key="GridCell.Tab.1.left" timestamp="1604887619463">
+    <state width="1493" height="61" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1604920791804" />
+    <state width="1493" height="61" key="GridCell.Tab.1.left" timestamp="1604920791804">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="131" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1604887619463" />
-    <state width="1493" height="131" key="GridCell.Tab.1.right" timestamp="1604887619463">
+    <state width="1493" height="61" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1604920791804" />
+    <state width="1493" height="61" key="GridCell.Tab.1.right" timestamp="1604920791804">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="131" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1604887619463" />
+    <state width="1493" height="61" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1604920791804" />
     <state x="299" y="72" key="Maven.ArtifactSearchDialog" timestamp="1604734333161">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -276,29 +284,34 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="306" y="153" width="924" height="641" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.834@0.0.1536.834" timestamp="1604728041543" />
-    <state x="467" y="149" width="602" height="536" key="find.popup" timestamp="1604888267610">
+    <state x="467" y="149" width="602" height="536" key="find.popup" timestamp="1604924146988">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="467" y="149" width="602" height="536" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1604888267610" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1604885074093">
+    <state x="467" y="149" width="602" height="536" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1604924146988" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1604909858716">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1604885074093" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1604909858716" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/liufr/manager/DependencyManager.java</url>
-          <line>69</line>
-          <option name="timeStamp" value="12" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/GraphBuilderImpl.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/GraphBuilderImpl.java</url>
-          <line>55</line>
-          <option name="timeStamp" value="13" />
+          <line>146</line>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="org.neo4j.driver.internal.InternalRecord" memberName="queryKeys" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

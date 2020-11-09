@@ -1,11 +1,13 @@
 com\liufr\manager\model\Dependency.class
 com\liufr\manager\model\Project.class
-com\liufr\manager\service\GraphBuilder.class
 com\liufr\manager\service\impl\Neo4JHandlerImpl.class
 com\liufr\manager\DependencyManager.class
 com\liufr\manager\service\impl\GraphBuilderImpl.class
 com\liufr\manager\service\Neo4JHandler.class
-com\liufr\manager\util\Finder.class
-com\liufr\manager\util\PomFileFinder.class
 com\liufr\manager\util\XMLConverter.class
 com\liufr\manager\model\Neo4jConn.class
+com\liufr\manager\model\IEnum.class
+com\liufr\manager\service\GraphBuilder.class
+com\liufr\manager\model\IEnum$Towards.class
+com\liufr\manager\util\Finder.class
+com\liufr\manager\util\PomFileFinder.class

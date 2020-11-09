@@ -7,5 +7,6 @@ D:\workspace\dependency-manager\src\main\java\com\liufr\manager\util\Finder.java
 D:\workspace\dependency-manager\src\main\java\com\liufr\manager\model\Project.java
 D:\workspace\dependency-manager\src\main\java\com\liufr\manager\service\impl\Neo4JHandlerImpl.java
 D:\workspace\dependency-manager\src\main\java\com\liufr\manager\DependencyManager.java
+D:\workspace\dependency-manager\src\main\java\com\liufr\manager\model\IEnum.java
 D:\workspace\dependency-manager\src\main\java\com\liufr\manager\model\Dependency.java
 D:\workspace\dependency-manager\src\main\java\com\liufr\manager\service\Neo4JHandler.java

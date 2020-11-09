@@ -1,6 +1,10 @@
 package com.liufr.manager.model;
 
+import org.neo4j.driver.Record;
+
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author lfr
@@ -69,5 +73,18 @@ public class Dependency {
                 ", groupId='" + groupId + '\'' +
                 ", version='" + version + '\'' +
                 '}';
+    }
+
+    public static List<Dependency> convertFromRecords(List<Record> records) {
+        List<Dependency> deps = new ArrayList<>();
+        for (Record record : records) {
+            Dependency dep = new Dependency();
+            dep.setArtifactId(record.get("artifactId").asString());
+            dep.setGroupId(record.get("groupId").asString());
+            dep.setVersion(record.get("version").asString());
+            deps.add(dep);
+        }
+
+        return deps;
     }
 }

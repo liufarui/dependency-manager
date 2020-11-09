@@ -1,8 +1,14 @@
 package com.liufr.manager.service.impl;
 
+import com.liufr.manager.model.Dependency;
+import com.liufr.manager.model.IEnum;
 import com.liufr.manager.model.Neo4jConn;
 import com.liufr.manager.service.Neo4JHandler;
+import org.junit.Test;
 import org.neo4j.driver.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author lfr
@@ -31,7 +37,7 @@ public class Neo4JHandlerImpl implements Neo4JHandler {
     public Boolean cleanDB() {
         try {
             String clearCommand = "MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n,r";
-            execute(clearCommand);
+            getRecord(clearCommand);
             return true;
         } catch (Exception e) {
             return false;
@@ -44,8 +50,24 @@ public class Neo4JHandlerImpl implements Neo4JHandler {
         String baseCmd = "MATCH (a:Project) WHERE a.artifactId = \"%s\" RETURN id(a) AS id";
         String getArtifactCommand = String.format(baseCmd, artifactId);
 
-        Record record = execute(getArtifactCommand);
+        Record record = getRecord(getArtifactCommand);
         return (record == null) ? null : record.get("id").toString();
+    }
+
+    @Override
+    public List<Dependency> getDependency(String artifactId, IEnum.Towards towards) throws Exception {
+        String baseCmd;
+        if (IEnum.Towards.below == towards) {
+            baseCmd = "MATCH (a)-[r:depend]->(x) WHERE a.artifactId=\"%s\" RETURN x.artifactId as artifactId, x.groupId as groupId, x.version as version";
+        } else if (IEnum.Towards.above == towards) {
+            baseCmd = "MATCH (x)-[r:depend]->(a) WHERE a.artifactId=\"%s\" RETURN x.artifactId as artifactId, x.groupId as groupId, x.version as version";
+        } else {
+            throw new Exception();
+        }
+        String getArtifactCommand = String.format(baseCmd, artifactId);
+
+        List<Record> records = getRecords(getArtifactCommand);
+        return Dependency.convertFromRecords(records);
     }
 
     @Override
@@ -53,7 +75,7 @@ public class Neo4JHandlerImpl implements Neo4JHandler {
         String baseCmd = "MATCH (a:Artifact) WHERE a.artifactId = \"%s\" RETURN id(a) AS id";
         String getArtifactCommand = String.format(baseCmd, artifactId);
 
-        Record record = execute(getArtifactCommand);
+        Record record = getRecord(getArtifactCommand);
         return (record == null) ? null : record.get("id").toString();
     }
 
@@ -67,32 +89,46 @@ public class Neo4JHandlerImpl implements Neo4JHandler {
         String baseCmd = "CREATE (a:%s {groupId: \"%s\", artifactId: \"%s\", version: \"%s\"}) RETURN id(a) AS id";
         String createNodeCmd = String.format(baseCmd, type, groupId, artifactId, version);
 
-        Record record = execute(createNodeCmd);
+        Record record = getRecord(createNodeCmd);
         return (record == null) ? "" : record.get("id").toString();
     }
 
     @Override
-    public void addRelationship(String start, String end, String relation) {
-        String baseCmd = "MATCH (a),(b) WHERE ID(a)=%s AND ID(b)=%s CREATE (a)-[r:%s]->(b)";
-        String addRelationshipCommand = String.format(baseCmd, start, end, relation);
-        execute(addRelationshipCommand);
+    public String getRelationship(String start, String end) {
+        String baseCmd = "MATCH (a)-[r]->(b) WHERE ID(a)=%s AND ID(b)=%s RETURN type(r) AS type";
+        String addRelationshipCommand = String.format(baseCmd, start, end);
+        Record record = getRecord(addRelationshipCommand);
+        return (record == null) ? "" : record.get("type").toString().replace("\"", "");
     }
 
-    private Record execute(String command) {
+    @Override
+    public void addRelationship(String start, String end, String relation) {
+        String oldRelation = getRelationship(start, end);
+        if (!oldRelation.isEmpty() && relation.equals(oldRelation)) {
+            return;
+        }
+        String baseCmd = "MATCH (a),(b) WHERE ID(a)=%s AND ID(b)=%s CREATE (a)-[r:%s]->(b)";
+        String addRelationshipCommand = String.format(baseCmd, start, end, relation);
+        getRecord(addRelationshipCommand);
+    }
+
+    private Record getRecord(String command) {
+        List<Record> records = getRecords(command);
+        return records.size() == 0 ? null : records.get(0);
+    }
+
+    private List<Record> getRecords(String command) {
+        List<Record> records = new ArrayList<>();
         try (Driver driver = GraphDatabase.driver(conn.getServerURL(), AuthTokens.basic(conn.getUserName(), conn.getPassword()));
              Session session = driver.session()) {
             Result result = session.run(command);
-
-            Record record = null;
             while (result.hasNext()) {
-                record = result.next();
-//                System.out.println(record.toString());
+                records.add(result.next());
             }
-            return record;
         } catch (Exception e) {
             System.out.println(e.toString());
             System.out.println("ERROR! Execute failed with -> " + command);
         }
-        return null;
+        return records;
     }
 }
