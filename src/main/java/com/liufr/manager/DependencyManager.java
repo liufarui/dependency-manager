@@ -48,14 +48,14 @@ public class DependencyManager {
             System.out.println("    <password>      - The password of your graph database (Neo4J).");
             System.out.println("    <operate>       - The operation you want to select (export/import), Default: export.");
             System.out.println("                    - If you use import, you need directory, type, format.");
-            System.out.println("                    - If you use export, you need directory, type, format.");
+            System.out.println("                    - If you use export, you need artifact, depend.");
             System.out.println("    <directory/dir> - The directory you want to detect.");
             System.out.println("    <type>          - The type you want to manage (module/project), Default: module.");
             System.out.println("    <format>        - The format you want to match, up to two (*) can be used (e.g. org*, *sql, org*spring*cn).");
             System.out.println("                    - Format can be ignored! Full match will be used by Default.");
             System.out.println("                    - Special reminder: Single full match symbol (*) cannot be used.");
             System.out.println("    <artifact>      - The artifact you want to export dependency (e.g. log4j, spring-test).");
-            System.out.println("    <depend>        - The upper-level dependencies or lower-level dependencies you want to export (above/below), Default: below.");
+            System.out.println("    <depend>        - The upper-level dependencies or lower-level dependencies you want to export (all/above/below), Default: all.");
             System.out.println("Example: java -jar dependency-manager-0.0.1-SNAPSHOT-jar-with-dependencies.jar url=bolt://localhost:7687 user=neo4j password=123456 artifact=spring-test operate=export depend=above");
             System.exit(0);
         }
@@ -80,14 +80,19 @@ public class DependencyManager {
         if ("export".equals(operate)) {
             artifact = parameter.get("artifact");
             depend = parameter.get("depend");
-            List<Dependency> deps = build.getDependency(artifact, IEnum.Towards.valueOf(depend));
             if (IEnum.towardsAbove(depend)) {
+                List<Dependency> deps = build.getDependency(artifact, IEnum.Towards.above);
                 System.out.printf("The following modules depend on %s:%n", artifact);
-            } else {
-                System.out.printf("%s module depend on:%n", artifact);
+                for (Dependency dep : deps) {
+                    System.out.printf("        %s%n", dep.getArtifactId());
+                }
             }
-            for (Dependency dep : deps) {
-                System.out.printf("        %s%n", dep.getArtifactId());
+            if (IEnum.towardsBelow(depend)) {
+                List<Dependency> deps = build.getDependency(artifact, IEnum.Towards.below);
+                System.out.printf("%s module depend on:%n", artifact);
+                for (Dependency dep : deps) {
+                    System.out.printf("        %s%n", dep.getArtifactId());
+                }
             }
         } else {
             directory = parameter.containsKey("directory") ? parameter.get("directory") : parameter.get("dir");
@@ -131,7 +136,7 @@ public class DependencyManager {
     @Test
     public void getDependency() throws Exception {
         init();
-        List<Dependency> deps = build.getDependency("eclp-so-api", IEnum.Towards.valueOf("above"));
+        List<Dependency> deps = build.getDependency("log4j", IEnum.Towards.valueOf("above"));
         System.out.println(deps);
     }
 
@@ -209,10 +214,10 @@ public class DependencyManager {
                 throw new Exception("ERROR: Artifact information is missing! You can use as follows: log4j, spring-test.");
             }
             if (!parameter.containsKey("depend")) {
-                parameter.put("depend", "below");
+                parameter.put("depend", "all");
             }
-            if (!"above".equals(parameter.get("depend")) && !"below".equals(parameter.get("depend"))) {
-                throw new Exception("ERROR: Depend information is missing! You can only use above/below.");
+            if (!"all".equals(parameter.get("depend")) && !"above".equals(parameter.get("depend")) && !"below".equals(parameter.get("depend"))) {
+                throw new Exception("ERROR: Depend information is missing! You can only use all/above/below.");
             }
         }
     }

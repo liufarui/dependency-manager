@@ -6,14 +6,15 @@ package com.liufr.manager.model;
  */
 public class IEnum {
     public enum Towards{
+        all,
         above,
         below;
     }
 
     public static boolean towardsAbove(String check) {
-        return check.equals(Towards.above.toString());
+        return check.equals(Towards.above.toString()) || check.equals(Towards.all.toString());
     }
     public static boolean towardsBelow(String check) {
-        return check.equals(Towards.below.toString());
+        return check.equals(Towards.below.toString()) || check.equals(Towards.all.toString());
     }
 }
