@@ -1,10 +1,8 @@
-package com.liufr.manager.service.impl;
+package com.liufr.manager.service;
 
 import com.liufr.manager.model.Dependency;
 import com.liufr.manager.model.IEnum;
 import com.liufr.manager.model.Neo4jConn;
-import com.liufr.manager.service.Neo4JHandler;
-import org.junit.Test;
 import org.neo4j.driver.*;
 
 import java.util.ArrayList;
@@ -14,16 +12,16 @@ import java.util.List;
  * @author lfr
  * @date 2020/11/6 23:46
  */
-public class Neo4JHandlerImpl implements Neo4JHandler {
+public class Neo4JHandler {
     private final Session session;
     private final Driver driver;
 
-    public Neo4JHandlerImpl(Neo4jConn conn) {
+    public Neo4JHandler(Neo4jConn conn) {
         driver = GraphDatabase.driver(conn.getServerURL(), AuthTokens.basic(conn.getUserName(), conn.getPassword()));
         session = driver.session();
     }
 
-    public Boolean GCNeo4JHandlerImpl() {
+    public Boolean closeSession() {
         try {
             if (session != null) {
                 session.close();
@@ -38,13 +36,11 @@ public class Neo4JHandlerImpl implements Neo4JHandler {
         }
     }
 
-    @Override
     public Boolean isNeoAvailable() {
         session.run("MATCH (n) RETURN n LIMIT 5");
         return true;
     }
 
-    @Override
     public Boolean cleanDB() {
         try {
             String clearCommand = "MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n,r";
@@ -56,7 +52,6 @@ public class Neo4JHandlerImpl implements Neo4JHandler {
 
     }
 
-    @Override
     public String getProject(String artifactId) {
         String baseCmd = "MATCH (a:Project) WHERE a.artifactId = \"%s\" RETURN id(a) AS id";
         String getArtifactCommand = String.format(baseCmd, artifactId);
@@ -65,7 +60,6 @@ public class Neo4JHandlerImpl implements Neo4JHandler {
         return (record == null) ? null : record.get("id").toString();
     }
 
-    @Override
     public List<Dependency> getDependency(String artifactId, IEnum.Towards towards) throws Exception {
         String baseCmd;
         if (IEnum.Towards.below == towards) {
@@ -81,7 +75,6 @@ public class Neo4JHandlerImpl implements Neo4JHandler {
         return Dependency.convertFromRecords(records);
     }
 
-    @Override
     public String getArtifact(String artifactId) {
         String baseCmd = "MATCH (a:Artifact) WHERE a.artifactId = \"%s\" RETURN id(a) AS id";
         String getArtifactCommand = String.format(baseCmd, artifactId);
@@ -90,7 +83,6 @@ public class Neo4JHandlerImpl implements Neo4JHandler {
         return (record == null) ? null : record.get("id").toString();
     }
 
-    @Override
     public String createNode(String type, String groupId, String artifactId, String version) {
         String id = getArtifact(artifactId);
         if ("Artifact".equals(type) && id != null) {
@@ -104,7 +96,6 @@ public class Neo4JHandlerImpl implements Neo4JHandler {
         return (record == null) ? "" : record.get("id").toString();
     }
 
-    @Override
     public String getRelationship(String start, String end) {
         String baseCmd = "MATCH (a)-[r]->(b) WHERE ID(a)=%s AND ID(b)=%s RETURN type(r) AS type";
         String addRelationshipCommand = String.format(baseCmd, start, end);
@@ -112,7 +103,6 @@ public class Neo4JHandlerImpl implements Neo4JHandler {
         return (record == null) ? "" : record.get("type").toString().replace("\"", "");
     }
 
-    @Override
     public void addRelationship(String start, String end, String relation) {
         String oldRelation = getRelationship(start, end);
         if (!oldRelation.isEmpty() && relation.equals(oldRelation)) {
