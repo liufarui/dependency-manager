@@ -25,7 +25,10 @@
     <list default="true" id="539748d3-6b96-404f-98d8-d718bebf76b6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/DependencyManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/DependencyManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/model/IEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/model/IEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/GraphBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/GraphBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/Neo4JHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/Neo4JHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/GraphBuilderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/GraphBuilderImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/Neo4JHandlerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/Neo4JHandlerImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -190,7 +193,7 @@
       <workItem from="1604746507846" duration="14291000" />
       <workItem from="1604844748647" duration="4000" />
       <workItem from="1604845035288" duration="16000" />
-      <workItem from="1604884286877" duration="32742000" />
+      <workItem from="1604884286877" duration="34950000" />
     </task>
     <servers />
   </component>
@@ -214,10 +217,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="249" y="0" key="#Project_Structure/0.0.1536.834@0.0.1536.834" timestamp="1604753200062" />
-    <state x="574" y="101" key="#com.intellij.ide.util.MemberChooser" timestamp="1604901206449">
+    <state x="574" y="101" key="#com.intellij.ide.util.MemberChooser" timestamp="1604974612536">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="574" y="101" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1604901206449" />
+    <state x="574" y="101" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1604974612536" />
     <state x="202" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1604727776819">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -282,10 +285,14 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="467" y="149" width="602" height="536" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1604972891907" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1604909858716">
+    <state x="549" y="162" key="refactoring.ChangeSignatureDialog" timestamp="1604973138478">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1604909858716" />
+    <state x="549" y="162" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1604973138478" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1604973554921">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1604973554921" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -297,7 +304,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/GraphBuilderImpl.java</url>
-          <line>146</line>
+          <line>150</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>

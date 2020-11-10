@@ -11,6 +11,8 @@ import java.util.List;
  * @date 2020/11/6
  */
 public interface GraphBuilder {
+    Boolean GCNeo4JHandlerImpl();
+
     Boolean connect() throws Exception;
 
     Boolean cleanup() throws Exception;

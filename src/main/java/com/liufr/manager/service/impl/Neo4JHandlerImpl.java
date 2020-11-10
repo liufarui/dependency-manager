@@ -15,22 +15,33 @@ import java.util.List;
  * @date 2020/11/6 23:46
  */
 public class Neo4JHandlerImpl implements Neo4JHandler {
-    private final Neo4jConn conn;
+    private final Session session;
+    private final Driver driver;
 
     public Neo4JHandlerImpl(Neo4jConn conn) {
-        this.conn = conn;
+        driver = GraphDatabase.driver(conn.getServerURL(), AuthTokens.basic(conn.getUserName(), conn.getPassword()));
+        session = driver.session();
+    }
+
+    public Boolean GCNeo4JHandlerImpl() {
+        try {
+            if (session != null) {
+                session.close();
+            }
+            if (driver != null) {
+                driver.close();
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("Session failed to close");
+            return false;
+        }
     }
 
     @Override
     public Boolean isNeoAvailable() {
-        try (Driver driver = GraphDatabase.driver(conn.getServerURL(), AuthTokens.basic(conn.getUserName(), conn.getPassword()));
-             Session session = driver.session()) {
-            session.run("MATCH (n) RETURN n LIMIT 5");
-            return true;
-        } catch (Exception e) {
-            System.out.println(e.toString());
-            return false;
-        }
+        session.run("MATCH (n) RETURN n LIMIT 5");
+        return true;
     }
 
     @Override
@@ -119,15 +130,9 @@ public class Neo4JHandlerImpl implements Neo4JHandler {
 
     private List<Record> getRecords(String command) {
         List<Record> records = new ArrayList<>();
-        try (Driver driver = GraphDatabase.driver(conn.getServerURL(), AuthTokens.basic(conn.getUserName(), conn.getPassword()));
-             Session session = driver.session()) {
-            Result result = session.run(command);
-            while (result.hasNext()) {
-                records.add(result.next());
-            }
-        } catch (Exception e) {
-            System.out.println(e.toString());
-            System.out.println("ERROR! Execute failed with -> " + command);
+        Result result = session.run(command);
+        while (result.hasNext()) {
+            records.add(result.next());
         }
         return records;
     }

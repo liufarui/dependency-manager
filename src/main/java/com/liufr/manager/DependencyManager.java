@@ -68,6 +68,7 @@ public class DependencyManager {
             System.exit(1);
         }
         System.out.println("End!!!!!!!!");
+        build.GCNeo4JHandlerImpl();
     }
 
     public static void bus(HashMap<String, String> parameter) throws Exception {

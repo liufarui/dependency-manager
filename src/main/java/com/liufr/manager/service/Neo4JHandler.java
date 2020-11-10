@@ -11,6 +11,8 @@ import java.util.List;
  */
 public interface Neo4JHandler {
 
+    Boolean GCNeo4JHandlerImpl();
+
     Boolean isNeoAvailable();
 
     Boolean cleanDB();

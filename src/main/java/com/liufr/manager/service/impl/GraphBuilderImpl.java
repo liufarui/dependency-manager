@@ -90,6 +90,10 @@ public class GraphBuilderImpl implements GraphBuilder {
         this.handler = new Neo4JHandlerImpl(conn);
     }
 
+    public Boolean GCNeo4JHandlerImpl() {
+        return this.handler.GCNeo4JHandlerImpl();
+    }
+
     @Override
     public Boolean connect() throws Exception {
         boolean isNeoAvailable = handler.isNeoAvailable();
