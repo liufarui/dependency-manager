@@ -1,12 +1,13 @@
 package com.liufr.manager;
 
 import com.liufr.manager.model.Dependency;
-import com.liufr.manager.model.IEnum;
 import com.liufr.manager.service.GraphBuilder;
-import com.liufr.manager.service.impl.*;
 import com.liufr.manager.model.Project;
+import com.liufr.manager.type.DependTowards;
+import com.liufr.manager.type.Operation;
+import com.liufr.manager.type.Type;
 import com.liufr.manager.util.PomFileFinder;
-import com.liufr.manager.model.Neo4jConn;
+import com.liufr.manager.util.Neo4JConn;
 import com.liufr.manager.util.XMLConverter;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -28,12 +29,12 @@ public class DependencyManager {
     static String url;
     static String username;
     static String password;
-    static String operate;
+    static String operation;
     static String directory;
     static String type;
     static String format;
     static String artifact;
-    static String depend;
+    static String dependTowards;
 
     public static void main(String[] args) throws Exception {
         if (args.length == 0) {
@@ -46,7 +47,7 @@ public class DependencyManager {
             System.out.println("    <url>           - The address of your graph database (Neo4J).");
             System.out.println("    <user>          - The username of your graph database (Neo4J).");
             System.out.println("    <password>      - The password of your graph database (Neo4J).");
-            System.out.println("    <operate>       - The operation you want to select (export/import), Default: export.");
+            System.out.println("    <operation>       - The operation you want to select (exportDB/importDB), Default: exportDB.");
             System.out.println("                    - If you use import, you need directory, type, format.");
             System.out.println("                    - If you use export, you need artifact, depend.");
             System.out.println("    <directory/dir> - The directory you want to detect.");
@@ -56,40 +57,40 @@ public class DependencyManager {
             System.out.println("                    - Special reminder: Single full match symbol (*) cannot be used.");
             System.out.println("    <artifact>      - The artifact you want to export dependency (e.g. log4j, spring-test).");
             System.out.println("    <depend>        - The upper-level dependencies or lower-level dependencies you want to export (all/above/below), Default: all.");
-            System.out.println("Example: java -jar dependency-manager-0.0.1-SNAPSHOT-jar-with-dependencies.jar url=bolt://localhost:7687 user=neo4j password=123456 artifact=spring-test operate=export depend=above");
+            System.out.println("Example: java -jar dependency-manager-0.0.1-SNAPSHOT-jar-with-dependencies.jar url=bolt://localhost:7687 user=neo4j password=123456 artifact=spring-test operation=export depend=above");
             System.exit(0);
         }
         System.out.println("Start!!!!!!!!");
         try {
             HashMap<String, String> parameter = getParameter(args);
-            bus(parameter);
+            execute(parameter);
         } catch (Exception e) {
             System.err.println(e.toString());
             System.exit(1);
         }
         System.out.println("End!!!!!!!!");
-        build.GCNeo4JHandlerImpl();
+        build.GCNeo4JHandler();
     }
 
-    public static void bus(HashMap<String, String> parameter) throws Exception {
+    public static void execute(HashMap<String, String> parameter) throws Exception {
         buildGraph(parameter);
         if (!build.connect()) {
             throw new Exception("ERROR: Failed to connect to Neo4J!");
         }
-        operate = parameter.get("operate");
+        operation = parameter.get("operation");
 
-        if ("export".equals(operate)) {
+        if ("export".equals(operation)) {
             artifact = parameter.get("artifact");
-            depend = parameter.get("depend");
-            if (IEnum.towardsAbove(depend)) {
-                List<Dependency> deps = build.getDependency(artifact, IEnum.Towards.above);
+            dependTowards = parameter.get("depend");
+            if (DependTowards.towardsAbove(dependTowards)) {
+                List<Dependency> deps = build.getDependency(artifact, DependTowards.above);
                 System.out.printf("The following modules depend on %s:%n", artifact);
                 for (Dependency dep : deps) {
                     System.out.printf("        %s%n", dep.getArtifactId());
                 }
             }
-            if (IEnum.towardsBelow(depend)) {
-                List<Dependency> deps = build.getDependency(artifact, IEnum.Towards.below);
+            if (DependTowards.towardsBelow(dependTowards)) {
+                List<Dependency> deps = build.getDependency(artifact, DependTowards.below);
                 System.out.printf("%s module depend on:%n", artifact);
                 for (Dependency dep : deps) {
                     System.out.printf("        %s%n", dep.getArtifactId());
@@ -100,7 +101,7 @@ public class DependencyManager {
             type = parameter.get("type");
             format = parameter.get("format");
             if ("project".equals(type)) {
-                exportOnlyProj();
+                exportOnlyProject();
             } else if ("module".equals(type)) {
                 exportAll();
             } else {
@@ -110,68 +111,31 @@ public class DependencyManager {
         }
     }
 
-    @Test
-    public void exportAllTest() throws Exception {
-        init();
-        exportAll();
-    }
-
-    @Test
-    public void checkConnectTest() throws Exception {
-        init();
-        build.connect();
-    }
-
-    @Test
-    public void exportOnlyProjTest() throws Exception {
-        init();
-        exportOnlyProj();
-    }
-
-    @Test
-    public void test() throws Exception {
-        init();
-        build.buildProj(null);
-    }
-
-    @Test
-    public void getDependency() throws Exception {
-        init();
-        List<Dependency> deps = build.getDependency("log4j", IEnum.Towards.valueOf("above"));
-        System.out.println(deps);
-    }
-
-    public static void init() throws Exception {
-        directory = "D:\\workspace\\so";
-        Neo4jConn conn = new Neo4jConn("bolt://localhost:7687", "neo4j", "123456");
-        build = new GraphBuilderImpl(conn, "*");
-    }
-
     public static void exportAll() throws Exception {
         /* Warning! Clear all data in neo4J! */
         if (!build.cleanup()) {
             return;
         }
-        List<Project> projList = getProjList(getPaths(directory));
-        build.buildProj(projList);
-        for (Project proj : projList) {
+        List<Project> projectList = getProjectList(getPaths(directory));
+        build.buildProject(projectList);
+        for (Project project : projectList) {
             try {
-                System.out.println(proj.toString());
-                build.buildRepoGraph(proj);
+                System.out.println(project.toString());
+                build.buildRepoGraph(project);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public static void exportOnlyProj() throws Exception {
+    public static void exportOnlyProject() throws Exception {
         /* Warning! Clear all data in neo4J! */
         if (!build.cleanup()) {
             return;
         }
-        List<Project> projList = getProjList(getPaths(directory));
+        List<Project> projectList = getProjectList(getPaths(directory));
 
-        build.buildProjRepoGraph(projList);
+        build.buildProjectRepoGraph(projectList);
     }
 
     private static HashMap<String, String> getParameter(String[] args) throws Exception {
@@ -194,30 +158,35 @@ public class DependencyManager {
         if (!parameter.containsKey("password")) {
             throw new Exception("ERROR: Neo4J information is missing! Password must be provided.");
         }
-        if (!parameter.containsKey("operate")) {
-            parameter.put("operate", "export");
+        if (!parameter.containsKey("operation")) {
+            parameter.put("operation", "export");
         }
-        if ("import".equals(parameter.get("operate"))) {
+        if (!Operation.contain(parameter.get("operation"))) {
+            throw new Exception("ERROR: Operation information is error! You can use only exportDB/importDB.");
+        }
+        operation = parameter.get("operation");
+        if (Operation.valueOf(operation) == Operation.importDB) {
             if (!parameter.containsKey("dir") && !parameter.containsKey("directory")) {
                 throw new Exception("ERROR: Directory information is missing! You can use as follows: D:/workspace/springTest.");
             }
             if (!parameter.containsKey("type")) {
-                parameter.put("type", "module");
+                parameter.put("type", Type.module.toString());
             }
-            if (!"project".equals(parameter.get("type")) && !"module".equals(parameter.get("type"))) {
+            if (Type.contain(parameter.get("type"))) {
                 throw new Exception("ERROR: Type information is error! You can use only project/module.");
             }
             if (!parameter.containsKey("format")) {
                 parameter.put("format", "");
             }
-        } else if ("export".equals(parameter.get("operate"))) {
+        } else if (Operation.valueOf(operation) == Operation.exportDB) {
             if (!parameter.containsKey("artifact")) {
                 throw new Exception("ERROR: Artifact information is missing! You can use as follows: log4j, spring-test.");
             }
             if (!parameter.containsKey("depend")) {
                 parameter.put("depend", "all");
             }
-            if (!"all".equals(parameter.get("depend")) && !"above".equals(parameter.get("depend")) && !"below".equals(parameter.get("depend"))) {
+            dependTowards = parameter.get("depend");
+            if (!DependTowards.contain(dependTowards)) {
                 throw new Exception("ERROR: Depend information is missing! You can only use all/above/below.");
             }
         }
@@ -227,17 +196,17 @@ public class DependencyManager {
         url = parameter.get("url");
         username = parameter.get("user");
         password = parameter.get("password");
-        build = new GraphBuilderImpl(new Neo4jConn(url, username, password), format);
+        build = new GraphBuilder(new Neo4JConn(url, username, password), format);
     }
 
-    private static List<Project> getProjList(List<Path> paths) throws SAXException, ParserConfigurationException, FileNotFoundException, JAXBException {
-        List<Project> projList = new ArrayList<>();
+    private static List<Project> getProjectList(List<Path> paths) throws SAXException, ParserConfigurationException, FileNotFoundException, JAXBException {
+        List<Project> projectList = new ArrayList<>();
         XMLConverter converter = new XMLConverter();
         for (Path path : paths) {
-            Project proj = converter.convertFromXML(path);
-            projList.add(proj);
+            Project project = converter.convertFromXML(path);
+            projectList.add(project);
         }
-        return projList;
+        return projectList;
     }
 
     private static List<Path> getPaths(String root) {

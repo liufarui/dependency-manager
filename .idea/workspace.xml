@@ -26,10 +26,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/DependencyManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/DependencyManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/GraphBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/GraphBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/Neo4JHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/Neo4JHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/GraphBuilderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/GraphBuilderImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/Neo4JHandlerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/Neo4JHandlerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/Neo4JEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/service/Neo4JEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/liufr/manager/util/Neo4JConn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/liufr/manager/util/Neo4JConn.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +39,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -77,7 +76,7 @@
       <recent name="com.liufr.manager.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.DependencyManager.exportAllTest">
+  <component name="RunManager" selected="JUnit.DependencyManager.tesa">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -121,22 +120,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DependencyManager.exportOnlyProj" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="dependency-manager" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.liufr.manager.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.liufr.manager" />
-      <option name="MAIN_CLASS_NAME" value="com.liufr.manager.DependencyManager" />
-      <option name="METHOD_NAME" value="exportOnlyProj" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="DependencyManager.getDependency" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="dependency-manager" />
       <extension name="coverage">
@@ -148,6 +131,22 @@
       <option name="PACKAGE_NAME" value="com.liufr.manager" />
       <option name="MAIN_CLASS_NAME" value="com.liufr.manager.DependencyManager" />
       <option name="METHOD_NAME" value="getDependency" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DependencyManager.tesa" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="dependency-manager" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.liufr.manager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.liufr.manager" />
+      <option name="MAIN_CLASS_NAME" value="com.liufr.manager.DependencyManager" />
+      <option name="METHOD_NAME" value="tesa" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -171,11 +170,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.DependencyManager.tesa" />
         <item itemvalue="JUnit.DependencyManager.exportAllTest" />
         <item itemvalue="JUnit.DependencyManager.test" />
         <item itemvalue="JUnit.DependencyManager.getDependency" />
         <item itemvalue="JUnit.DependencyManager.checkConnectTest" />
-        <item itemvalue="JUnit.DependencyManager.exportOnlyProj" />
       </list>
     </recent_temporary>
   </component>
@@ -193,7 +192,7 @@
       <workItem from="1604746507846" duration="14291000" />
       <workItem from="1604844748647" duration="4000" />
       <workItem from="1604845035288" duration="16000" />
-      <workItem from="1604884286877" duration="34950000" />
+      <workItem from="1604884286877" duration="42231000" />
     </task>
     <servers />
   </component>
@@ -217,14 +216,18 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="249" y="0" key="#Project_Structure/0.0.1536.834@0.0.1536.834" timestamp="1604753200062" />
-    <state x="574" y="101" key="#com.intellij.ide.util.MemberChooser" timestamp="1604974612536">
+    <state x="574" y="101" key="#com.intellij.ide.util.MemberChooser" timestamp="1604989374447">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="574" y="101" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1604974612536" />
-    <state x="202" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1604727776819">
+    <state x="574" y="101" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1604989374447" />
+    <state x="202" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1604988368124">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="202" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1604727776819" />
+    <state x="202" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1604988368124" />
+    <state x="499" y="163" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1604988255635">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="499" y="163" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.834@0.0.1536.834" timestamp="1604988255635" />
     <state width="571" height="466" key="DebuggerActiveHint" timestamp="1604920695614">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -233,22 +236,22 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1604971808530" />
-    <state width="1493" height="2" key="GridCell.Tab.0.bottom" timestamp="1604924508358">
+    <state width="1493" height="384" key="GridCell.Tab.0.bottom" timestamp="1604990727709">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1604924508358" />
-    <state width="1493" height="2" key="GridCell.Tab.0.center" timestamp="1604924508358">
+    <state width="1493" height="384" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1604990727709" />
+    <state width="1493" height="384" key="GridCell.Tab.0.center" timestamp="1604990727709">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1604924508358" />
-    <state width="1493" height="2" key="GridCell.Tab.0.left" timestamp="1604924508358">
+    <state width="1493" height="384" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1604990727709" />
+    <state width="1493" height="384" key="GridCell.Tab.0.left" timestamp="1604990727709">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1604924508358" />
-    <state width="1493" height="2" key="GridCell.Tab.0.right" timestamp="1604924508358">
+    <state width="1493" height="384" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1604990727709" />
+    <state width="1493" height="384" key="GridCell.Tab.0.right" timestamp="1604990727709">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1604924508358" />
+    <state width="1493" height="384" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1604990727709" />
     <state width="1493" height="61" key="GridCell.Tab.1.bottom" timestamp="1604920791804">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -281,29 +284,28 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="306" y="153" width="924" height="641" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.834@0.0.1536.834" timestamp="1604728041543" />
-    <state x="467" y="149" width="602" height="536" key="find.popup" timestamp="1604972891907">
+    <state x="467" y="149" width="602" height="602" key="find.popup" timestamp="1604989642863">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="467" y="149" width="602" height="536" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1604972891907" />
+    <state x="467" y="149" width="602" height="602" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1604989642863" />
+    <state x="410" y="144" width="700" height="530" key="recent.locations.popup" timestamp="1604989586077">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="410" y="144" width="700" height="530" key="recent.locations.popup/0.0.1536.834@0.0.1536.834" timestamp="1604989586077" />
     <state x="549" y="162" key="refactoring.ChangeSignatureDialog" timestamp="1604973138478">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="549" y="162" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1604973138478" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1604973554921">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1604988701327">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1604973554921" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1604988701327" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/GraphBuilderImpl.java</url>
-          <line>56</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/liufr/manager/service/impl/GraphBuilderImpl.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/liufr/manager/service/GraphBuilder.java</url>
           <line>150</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>

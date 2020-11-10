@@ -1,15 +1,15 @@
-package com.liufr.manager.model;
+package com.liufr.manager.util;
 
 /**
  * @author lfr
  * @date 2020/11/6
  */
-public class Neo4jConn {
+public class Neo4JConn {
     private String serverURL;
     private String userName;
     private String password;
 
-    public Neo4jConn(String serverURL, String userName, String password) {
+    public Neo4JConn(String serverURL, String userName, String password) {
         this.serverURL = serverURL;
         this.userName = userName;
         this.password = password;

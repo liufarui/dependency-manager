@@ -1,8 +1,8 @@
 package com.liufr.manager.service;
 
 import com.liufr.manager.model.Dependency;
-import com.liufr.manager.model.IEnum;
-import com.liufr.manager.model.Neo4jConn;
+import com.liufr.manager.type.DependTowards;
+import com.liufr.manager.util.Neo4JConn;
 import org.neo4j.driver.*;
 
 import java.util.ArrayList;
@@ -12,11 +12,11 @@ import java.util.List;
  * @author lfr
  * @date 2020/11/6 23:46
  */
-public class Neo4JHandler {
+public class Neo4JEngine {
     private final Session session;
     private final Driver driver;
 
-    public Neo4JHandler(Neo4jConn conn) {
+    public Neo4JEngine(Neo4JConn conn) {
         driver = GraphDatabase.driver(conn.getServerURL(), AuthTokens.basic(conn.getUserName(), conn.getPassword()));
         session = driver.session();
     }
@@ -60,11 +60,11 @@ public class Neo4JHandler {
         return (record == null) ? null : record.get("id").toString();
     }
 
-    public List<Dependency> getDependency(String artifactId, IEnum.Towards towards) throws Exception {
+    public List<Dependency> getDependency(String artifactId, DependTowards dependTowards) throws Exception {
         String baseCmd;
-        if (IEnum.Towards.below == towards) {
+        if (DependTowards.below == dependTowards) {
             baseCmd = "MATCH (a)-[r:depend]->(x) WHERE a.artifactId=\"%s\" RETURN x.artifactId as artifactId, x.groupId as groupId, x.version as version";
-        } else if (IEnum.Towards.above == towards) {
+        } else if (DependTowards.above == dependTowards) {
             baseCmd = "MATCH (x)-[r:depend]->(a) WHERE a.artifactId=\"%s\" RETURN x.artifactId as artifactId, x.groupId as groupId, x.version as version";
         } else {
             throw new Exception();

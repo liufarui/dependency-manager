@@ -1,11 +1,9 @@
-package com.liufr.manager.service.impl;
+package com.liufr.manager.service;
 
 import com.liufr.manager.model.Dependency;
-import com.liufr.manager.model.IEnum;
-import com.liufr.manager.model.Neo4jConn;
+import com.liufr.manager.type.DependTowards;
+import com.liufr.manager.util.Neo4JConn;
 import com.liufr.manager.model.Project;
-import com.liufr.manager.service.GraphBuilder;
-import com.liufr.manager.service.Neo4JHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +13,8 @@ import java.util.List;
  * @author lfr
  * @date 2020/11/7 14:13
  */
-public class GraphBuilderImpl implements GraphBuilder {
-    Neo4JHandler handler;
+public class GraphBuilder {
+    Neo4JEngine neo4JEngine;
     /*
      * fix[0] is prefix
      * fix[1] is infix
@@ -25,8 +23,8 @@ public class GraphBuilderImpl implements GraphBuilder {
      * */
     String[] fix = new String[4];
 
-    public GraphBuilderImpl(Neo4jConn conn, String fix) throws Exception {
-        this.handler = new Neo4JHandlerImpl(conn);
+    public GraphBuilder(Neo4JConn conn, String fix) throws Exception {
+        this.neo4JEngine = new Neo4JEngine(conn);
         if (fix == null || fix.isEmpty()) {
             return;
         }
@@ -86,17 +84,16 @@ public class GraphBuilderImpl implements GraphBuilder {
         }
     }
 
-    public GraphBuilderImpl(Neo4jConn conn) {
-        this.handler = new Neo4JHandlerImpl(conn);
+    public GraphBuilder(Neo4JConn conn) {
+        this.neo4JEngine = new Neo4JEngine(conn);
     }
 
-    public Boolean GCNeo4JHandlerImpl() {
-        return this.handler.GCNeo4JHandlerImpl();
+    public Boolean GCNeo4JHandler() {
+        return this.neo4JEngine.closeSession();
     }
 
-    @Override
     public Boolean connect() throws Exception {
-        boolean isNeoAvailable = handler.isNeoAvailable();
+        boolean isNeoAvailable = neo4JEngine.isNeoAvailable();
         if (isNeoAvailable) {
             System.out.println("Successful! Connected to Neo4J!");
             return true;
@@ -105,9 +102,8 @@ public class GraphBuilderImpl implements GraphBuilder {
         return false;
     }
 
-    @Override
     public Boolean cleanup() throws Exception {
-        if (handler.cleanDB()) {
+        if (neo4JEngine.cleanDB()) {
             System.out.println("Success to clear DB!");
             return true;
         } else {
@@ -116,62 +112,58 @@ public class GraphBuilderImpl implements GraphBuilder {
         }
     }
 
-    @Override
-    public List<Dependency> getDependency(String artifactId, IEnum.Towards towards) throws Exception {
-        if (!handler.isNeoAvailable()) {
+    public List<Dependency> getDependency(String artifactId, DependTowards dependTowards) throws Exception {
+        if (!neo4JEngine.isNeoAvailable()) {
             System.out.println("ERROR! The Neo4J is not available!");
             return null;
         }
-        return handler.getDependency(artifactId, towards);
+        return neo4JEngine.getDependency(artifactId, dependTowards);
     }
 
-    @Override
-    public void buildProj(List<Project> projList) throws Exception {
-        for (Project proj : projList) {
-            handler.createNode("Project", proj.getGroupId(), proj.getArtifactId(), proj.getVersion());
+    public void buildProject(List<Project> projectList) throws Exception {
+        for (Project project : projectList) {
+            neo4JEngine.createNode("Project", project.getGroupId(), project.getArtifactId(), project.getVersion());
         }
     }
 
-    @Override
-    public void buildRepoGraph(Project proj) throws Exception {
-        if (!handler.isNeoAvailable()) {
+    public void buildRepoGraph(Project project) throws Exception {
+        if (!neo4JEngine.isNeoAvailable()) {
             System.out.println("ERROR! The Neo4J is not available!");
             return;
         }
-        String projId = handler.getProject(proj.getArtifactId());
+        String projectId = neo4JEngine.getProject(project.getArtifactId());
 
-        if (null != proj.getDeps()) {
-            for (Dependency dep : proj.getDeps()) {
+        if (null != project.getDeps()) {
+            for (Dependency dep : project.getDeps()) {
                 /* If Artifact exited, return */
                 if (dep.isFormat(this.fix)) {
-                    String artifactId = handler.createNode("Artifact", dep.getGroupId(), dep.getArtifactId(), dep.getVersion());
-                    handler.addRelationship(projId, artifactId, "depend");
-                    String artifactProjId = handler.getProject(dep.getArtifactId());
-                    if (artifactProjId != null && !artifactProjId.isEmpty()) {
-                        handler.addRelationship(artifactId, artifactProjId, "is");
+                    String artifactId = neo4JEngine.createNode("Artifact", dep.getGroupId(), dep.getArtifactId(), dep.getVersion());
+                    neo4JEngine.addRelationship(projectId, artifactId, "depend");
+                    String artifactProjectId = neo4JEngine.getProject(dep.getArtifactId());
+                    if (artifactProjectId != null && !artifactProjectId.isEmpty()) {
+                        neo4JEngine.addRelationship(artifactId, artifactProjectId, "is");
                     }
                 }
             }
         }
     }
 
-    @Override
-    public void buildProjRepoGraph(List<Project> projList) throws Exception {
-        if (!handler.isNeoAvailable()) {
+    public void buildProjectRepoGraph(List<Project> projectList) throws Exception {
+        if (!neo4JEngine.isNeoAvailable()) {
             System.out.println("ERROR! The Neo4J is not available!");
             return;
         }
-        HashMap<String, String> projGraph = new HashMap<>();
+        HashMap<String, String> projectGraph = new HashMap<>();
 
-        for (Project proj : projList) {
-            String id = handler.createNode("Project", proj.getGroupId(), proj.getArtifactId(), proj.getVersion());
-            projGraph.put(proj.getArtifactId(), id);
+        for (Project project : projectList) {
+            String id = neo4JEngine.createNode("Project", project.getGroupId(), project.getArtifactId(), project.getVersion());
+            projectGraph.put(project.getArtifactId(), id);
         }
-        for (Project proj : projList) {
-            if (null != proj.getDeps()) {
-                for (Dependency dep : proj.getDeps()) {
-                    if (projGraph.containsKey(dep.getArtifactId())) {
-                        handler.addRelationship(handler.getProject(proj.getArtifactId()), projGraph.get(dep.getArtifactId()), "depend");
+        for (Project project : projectList) {
+            if (null != project.getDeps()) {
+                for (Dependency dep : project.getDeps()) {
+                    if (projectGraph.containsKey(dep.getArtifactId())) {
+                        neo4JEngine.addRelationship(neo4JEngine.getProject(project.getArtifactId()), projectGraph.get(dep.getArtifactId()), "depend");
                     }
                 }
             }
